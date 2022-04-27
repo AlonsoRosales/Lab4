@@ -29,18 +29,28 @@ public class DistribuidorasController {
     }
 
 
-    public String editarDistribuidoras(){
-        return "distribuidoras/editarFrm";
+
+    public String editarDistribuidoras(Model model, @RequestParam("id") int id){
+        Optional<Distribuidoras> optDistribuidora = distribuidorasRepository.findById(id);
+
+        if (optDistribuidora.isPresent()) {
+            Distribuidoras distribuidora = optDistribuidora.get();
+            model.addAttribute("distribuidora", distribuidora);
+            model.addAttribute("listaPaises", paisesRepository.findAll());
+            return "distribuidora/editarFrm";
+        } else {
+            return "redirect:/distribuidoras";
+        }
     }
+
+
     @GetMapping(value = "/nueva")
     public String nuevaDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidoras,Model model){
         model.addAttribute("listaPaises",paisesRepository.findAll());
         return "distribuidoras/editarFrm";
     }
 
-    public String guardarDistribuidora( ){
-        return "redirect:/distribuidoras/lista";
-    }
+
 
     @GetMapping("/borrar")
     public String borrarDistribuidora(@RequestParam("id") int id){
