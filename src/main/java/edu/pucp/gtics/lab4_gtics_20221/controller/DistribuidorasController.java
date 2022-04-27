@@ -4,8 +4,12 @@ import edu.pucp.gtics.lab4_gtics_20221.entity.Distribuidoras;
 import edu.pucp.gtics.lab4_gtics_20221.repository.DistribuidorasRepository;
 import edu.pucp.gtics.lab4_gtics_20221.repository.PaisesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RequestMapping("/distribuidoras")
@@ -35,6 +39,29 @@ public class DistribuidorasController {
     public String guardarDistribuidora( ){
 
     }*/
+
+    public String guardarDistribuidora(@ModelAttribute("distribuidora") @Valid Distribuidoras distribuidora, BindingResult bindingResult,
+                                       RedirectAttributes attr,
+                                       Model model ){
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("listaPaises", paisesRepository.findAll());
+            return "distribuidoras/editarFrm";
+        } else {
+
+            if (distribuidora.getId() == null) {
+                attr.addFlashAttribute("msg", "Distribuidora creada exitosamente");
+                distribuidorasRepository.save(distribuidora);
+                return "redirect:/distribuidoras";
+            } else {
+                distribuidorasRepository.save(distribuidora);
+                attr.addFlashAttribute("msg", "Distribuidora actualizada exitosamente");
+                return "redirect:/distribuidoras";
+            }
+        }
+
+
+    }
 
     @GetMapping("/borrar")
     public String borrarDistribuidora(@RequestParam("id") int id){
