@@ -29,8 +29,18 @@ public class DistribuidorasController {
     }
 
 
-    public String editarDistribuidoras(){
-        return "distribuidoras/editarFrm";
+
+    public String editarDistribuidoras(Model model, @RequestParam("id") int id){
+        Optional<Distribuidoras> optDistribuidora = distribuidorasRepository.findById(id);
+
+        if (optDistribuidora.isPresent()) {
+            Distribuidoras distribuidora = optDistribuidora.get();
+            model.addAttribute("distribuidora", distribuidora);
+            model.addAttribute("listaPaises", paisesRepository.findAll());
+            return "distribuidora/editarFrm";
+        } else {
+            return "redirect:/distribuidoras";
+        }
     }
     @GetMapping(value = "/nuevo")
     public String nuevaDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidoras,Model model){
