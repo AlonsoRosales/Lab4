@@ -39,9 +39,9 @@ public class DistribuidorasController {
             Distribuidoras distribuidora = optDistribuidora.get();
             model.addAttribute("distribuidora", distribuidora);
             model.addAttribute("listaPaises", paisesRepository.findAll());
-            return "distribuidora/editarFrm";
+            return "distribuidoras/editarFrm";
         } else {
-            return "redirect:/distribuidoras";
+            return "redirect:/distribuidoras/lista";
         }
     }
 
