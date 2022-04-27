@@ -58,11 +58,11 @@ public class DistribuidorasController {
             if (distribuidora.getId() == null) {
                 attr.addFlashAttribute("msg", "Distribuidora creada exitosamente");
                 distribuidorasRepository.save(distribuidora);
-                return "redirect:/distribuidoras";
+                return "redirect:/distribuidoras/lista";
             } else {
                 distribuidorasRepository.save(distribuidora);
                 attr.addFlashAttribute("msg", "Distribuidora actualizada exitosamente");
-                return "redirect:/distribuidoras";
+                return "redirect:/distribuidoras/lista";
             }
         }
 
