@@ -1,84 +1,115 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/base.html :: head(title='Gameshop3 - Bienvenido')"></head>
-<body>
-<div class='container container-app'>
-    <div th:replace="fragments/header.html :: header(option='Juegos')"></div>
-
-    <div id="content">
-        <main>
-            <!-- Contenido -->
-        <div class="page-header text-center">
-            <h2 th:text=""></h2>
-        </div>
-        <div class="container-fluid">
-                <form method="POST" class="row g-3" th:action="@{/juegos/save}" th:object="${juego}">
-                    <input th:field="*{idjuego}" type="hidden"/>
-                    <div class="form-group">
-                        <label class="form-label">Nombre</label>
-                        <input th:field="*{nombre}" class="form-control" type="text"
-                               th:classappend="${#fields.hasErrors('nombre')?'is-invalid':''}"/>
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}"
-                             th:errors="*{nombre}"></div>
+    <head th:replace="fragments/base.html :: head(title='Gameshop3 - Bienvenido')"></head>
+    <body>
+        <div class='container container-app'>
+            <div th:replace="fragments/header.html :: header(option='Juegos')"></div>
+            <div id="content">
+                <main>
+                    <!-- Contenido -->
+                    <div class="page-header text-center">
+                        <h1 th:text="|${juego.idjuego == 0 ? 'Nuevo' : 'Editar'} Juego|">Nuevo Juego</h1>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Descripción</label>
-                        <input th:field="*{descripcion}" class="form-control" type="text"
-                               th:classappend="${#fields.hasErrors('descripcion')?'is-invalid':''}"/>
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}"
-                             th:errors="*{descripcion}"></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Género</label>
-                        <select class="form-select" name="genero" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
-                            <option th:each="generos : ${listaGeneros}" th:value="${generos.idgenero}"
-                                    th:text="${generos.nombre}"
-                                    th:selected="${generos.idgenero == juego.genero.idgenero}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Plataforma</label>
-                        <select class="form-select" name="plataforma" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
-                            <option th:each="plataforma : ${listaPlataformas}" th:value="${plataforma.idplataforma}"
-                                    th:text="${plataforma.nombre}"
-                                    th:selected="${plataforma.idplataforma == juego.plataforma.idplataforma}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Distribuidora</label>
-                        <select class="form-select" name="distribuidora" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
-                            <option th:each="distribuidora : ${listaDistribuidoras}" th:value="${distribuidora.id}"
-                                    th:text="${distribuidora.nombre}"
-                                    th:selected="${distribuidora.id == juego.distribuidora.id}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Imagen URL</label>
-                        <input th:field="*{email}" class="form-control" type="text"
-                               th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"/>
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}"
-                             th:errors="*{email}"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>Precio</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">S/</div>
+                    <div class="container-fluid">
+                        <form method="POST" class="row g-3" th:action="@{/juegos/guardar}" th:object="${juego}">
+                            <input th:field="*{idjuego}" type="hidden"/>
+                            <div class="form-group">
+                                <label class="form-label">Nombre</label>
+                                <input th:field="*{nombre}" class="form-control" type="text"
+                                       th:classappend="${#fields.hasErrors('nombre')?'is-invalid':''}"/>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}"
+                                     th:errors="*{nombre}"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Descripción</label>
+                                <input th:field="*{descripcion}" class="form-control" type="text"
+                                       th:classappend="${#fields.hasErrors('descripcion')?'is-invalid':''}"/>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}"
+                                     th:errors="*{descripcion}"></div>
                             </div>
 
-                        </div>
+                            <div class="form-group" th:if="${juego.idjuego == 0}">
+                                <label class="form-label">Género</label>
+                                <select class="form-select" name="genero" th:field="*{genero}" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                                    <option value="0">-- Seleccione --</option>
+                                    <option  th:each="generos : ${generos}" th:value="${generos.idgenero}"
+                                             th:text="${generos.nombre}"
+                                    ></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:if="${juego.idjuego != 0}">
+                                <label class="form-label">Género</label>
+                                <select class="form-select" name="genero" th:field="*{genero}" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                                    <option th:each="generos : ${generos}" th:value="${generos.idgenero}"
+                                            th:text="${generos.nombre}"
+                                    ></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:if="${juego.idjuego == 0}">
+                                <label class="form-label">Plataforma</label>
+                                <select class="form-select" name="plataforma" th:field="*{plataforma}" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                                    <option value="0">-- Seleccione --</option>
+                                    <option th:each="plataforma : ${plataformas}" th:value="${plataforma.idplataforma}"
+                                            th:text="${plataforma.nombre}"
+                                            ></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:if="${juego.idjuego != 0}">
+                                <label class="form-label">Plataforma</label>
+                                <select class="form-select" name="plataforma" th:field="*{plataforma}" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                                    <option th:each="plataforma : ${plataformas}" th:value="${plataforma.idplataforma}"
+                                            th:text="${plataforma.nombre}"
+                                    ></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:if="${juego.idjuego == 0}">
+                                <label class="form-label">Distribuidora</label>
+                                <select class="form-select" name="distribuidora" th:field="*{distribuidora}" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                                    <option value="0"> -- Selecione --</option>
+                                    <option th:each="distribuidora : ${distribuidoras}" th:value="${distribuidora.id}"
+                                            th:text="${distribuidora.nombre}"
+                                            ></option>
+                                </select>
+                            </div>
+                            <div class="form-group" th:if="${juego.idjuego != 0}">
+                                <label class="form-label">Distribuidora</label>
+                                <select class="form-select" name="distribuidora" th:field="*{distribuidora}" style="display: block;width: 100%;height: calc(1.5em + 0.75rem + 2px);padding: 0.375rem 0.75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: 0.25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                                    <option th:each="distribuidora : ${distribuidoras}" th:value="${distribuidora.id}"
+                                            th:text="${distribuidora.nombre}"
+                                    ></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Imagen URL</label>
+                                <input th:field="*{image}" class="form-control" type="text"
+                                       th:classappend="${#fields.hasErrors('image')?'is-invalid':''}"/>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('image')}"
+                                     th:errors="*{image}"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">S/</div>
+                                    </div>
+                                    <input th:field="*{precio}" class="form-control" type="text"
+                                           th:classappend="${#fields.hasErrors('precio')?'is-invalid':''}"/>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('precio')}"
+                                         th:errors="*{precio}"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a th:href="@{/juegos/lista}" class="btn btn-danger">Cancelar</a>
+                                <button  style="margin-left: 15px" type="submit" class="btn btn-primary"
+                                         th:text="${juego.idjuego == 0? 'Registrar' : 'Actualizar'}">Actualizar
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class="form-group">
-                        <a th:href="@{/juegos/lista}" class="btn btn-danger">Cancelar</a>
-                        <button type="submit" class="btn btn-primary" th:text="Boton ---">Reg/act</button>
-                    </div>
-                </form>
-        </div>
-        </main>
-    </div>
+                </main>
+            </div>
             <!-- /Contenido -->
-    <div th:replace="fragments/footer.html :: footer(year='2022')"></div>
-</div>
-<div th:replace="fragments/base.html :: jsScripts"></div>
-</body>
+            <div th:replace="fragments/footer.html :: footer(year='2022')"></div>
+        </div>
+        <div th:replace="fragments/base.html :: jsScripts"></div>
+    </body>
 </html>

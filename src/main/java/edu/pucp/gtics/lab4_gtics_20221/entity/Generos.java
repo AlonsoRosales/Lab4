@@ -6,14 +6,12 @@ import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "generos")
-
 public class Generos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Min(value = 0, message = "Género no puede estar vacío")
-    private
-    int idgenero;
+    private Integer idgenero;
     private String nombre;
     private String descripcion;
 

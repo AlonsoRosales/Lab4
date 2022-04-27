@@ -10,33 +10,34 @@ public class Juegos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idjuego")
     private int idjuego;
     @NotBlank
-    @Size(max = 45,min = 3)
+    @Size(max = 45,min = 3,message = "Debe contener entre 3 y 45 caracteres")
     private String nombre;
     @NotBlank
-    @Size
+    @Size(max = 400,min = 3,message =  "Debe contener entre 3 y 400 caracteres")
     private String descripcion;
     @Digits(integer = 10,fraction = 4)
     @Max(value = 500)
-    @Min(value = 10)
+    @Min(value = 10,message = "Valor minimo 10")
     private double precio;
 
     private String image;
 
     @ManyToOne
     @JoinColumn(name = "idplataforma")
-    @NotNull
+    @NotNull(message = "Plataforma no puede estar vacio")
     private Plataformas plataforma;
 
     @ManyToOne
     @JoinColumn(name = "iddistribuidora")
-    @NotNull
+    @NotNull(message =  "Distribuidora no puede estar vacio")
     private Distribuidoras distribuidora;
 
     @ManyToOne
     @JoinColumn(name = "idgenero")
-    @NotNull
+    @NotNull(message = "Genero no puede estar vacio")
     private Generos genero;
 
     public int getIdjuego() {
