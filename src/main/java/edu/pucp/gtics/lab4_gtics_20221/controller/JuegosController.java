@@ -3,6 +3,7 @@ package edu.pucp.gtics.lab4_gtics_20221.controller;
 import edu.pucp.gtics.lab4_gtics_20221.entity.*;
 import edu.pucp.gtics.lab4_gtics_20221.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,9 +44,15 @@ public class JuegosController {
     public String vistaJuegos ( ){
 
     }
-
-    public String nuevoJuegos( ){
-
+    @GetMapping("/juegos/nuevo")
+    public String nuevoJuegos(@ModelAttribute("juego") Juegos juegos, Model model){
+        List<Generos> generosList = generosRepository.findAll();
+        List<Plataformas> plataformasList = plataformasRepository.findAll();
+        List<Distribuidoras> distribuidorasList = distribuidorasRepository.findAll();
+        model.addAttribute("generos",generosList);
+        model.addAttribute("plataformas",plataformasList);
+        model.addAttribute("distribuidoras",distribuidorasList);
+        return "juegos/editarFrm";
     }
 
     public String editarJuegos( ){
