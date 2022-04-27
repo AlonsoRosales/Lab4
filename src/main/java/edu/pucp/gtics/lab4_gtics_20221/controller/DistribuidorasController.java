@@ -31,8 +31,7 @@ public class DistribuidorasController {
         return "distribuidoras/lista";
     }
 
-
-
+    @GetMapping(value = "/editar")
     public String editarDistribuidoras(Model model, @RequestParam("id") int id){
         Optional<Distribuidoras> optDistribuidora = distribuidorasRepository.findById(id);
 
@@ -46,6 +45,7 @@ public class DistribuidorasController {
         }
     }
 
+    @PostMapping(value = "/guardar")
     public String guardarDistribuidora(@ModelAttribute("distribuidora") @Valid Distribuidoras distribuidora, BindingResult bindingResult,
                                        RedirectAttributes attr,
                                        Model model ){
