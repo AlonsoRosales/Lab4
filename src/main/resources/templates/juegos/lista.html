@@ -13,9 +13,9 @@
             <div class="container-fluid">
 
                 <a class="btn btn-primary mt-4 mb-4" th:href="@{/juegos/nuevo}"><span class="bi bi-plus-circle"></span> Nuevo Juego</a>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div th:if="${msg} != null" class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="bi bi-check-circle-fill"></i>
-
+                    <span th:text="${msg}"></span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <table class="table table-striped">

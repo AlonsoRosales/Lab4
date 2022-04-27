@@ -71,7 +71,7 @@ public class JuegosController {
         }
     }
 
-    public String guardarJuegos( ){
+    public String guardarJuegos(){
         return "redirect:/juegos/lista";
     }
 
