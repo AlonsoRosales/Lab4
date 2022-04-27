@@ -15,7 +15,7 @@ public class Plataformas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Min(value = 0, message = "Plataforma no puede estar vacío")
-    private Integer idplataforma;
+    private int idplataforma;
 
     @Size(min=3, max = 45, message = "Debe contener entre 3 y 45 caracteres")
     private String nombre;

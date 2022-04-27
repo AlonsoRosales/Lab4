@@ -35,6 +35,9 @@
                                              th:text="${generos.nombre}"
                                     ></option>
                                 </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('genero')}"
+                                     th:errors="*{genero}"></div>
                             </div>
                             <div class="form-group" th:if="${juego.idjuego != 0}">
                                 <label class="form-label">Género</label>
@@ -43,6 +46,9 @@
                                             th:text="${generos.nombre}"
                                     ></option>
                                 </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('idjuego')}"
+                                     th:errors="*{idjuego}"></div>
                             </div>
                             <div class="form-group" th:if="${juego.idjuego == 0}">
                                 <label class="form-label">Plataforma</label>
@@ -52,6 +58,9 @@
                                             th:text="${plataforma.nombre}"
                                             ></option>
                                 </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('plataforma')}"
+                                     th:errors="*{plataforma}"></div>
                             </div>
                             <div class="form-group" th:if="${juego.idjuego != 0}">
                                 <label class="form-label">Plataforma</label>
@@ -60,6 +69,9 @@
                                             th:text="${plataforma.nombre}"
                                     ></option>
                                 </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('plataforma')}"
+                                     th:errors="*{plataforma}"></div>
                             </div>
                             <div class="form-group" th:if="${juego.idjuego == 0}">
                                 <label class="form-label">Distribuidora</label>
@@ -69,6 +81,9 @@
                                             th:text="${distribuidora.nombre}"
                                             ></option>
                                 </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('distribuidora')}"
+                                     th:errors="*{distribuidora}"></div>
                             </div>
                             <div class="form-group" th:if="${juego.idjuego != 0}">
                                 <label class="form-label">Distribuidora</label>
@@ -77,7 +92,11 @@
                                             th:text="${distribuidora.nombre}"
                                     ></option>
                                 </select>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('distribuidora')}"
+                                     th:errors="*{distribuidora}"></div>
                             </div>
+
                             <div class="form-group">
                                 <label class="form-label">Imagen URL</label>
                                 <input th:field="*{image}" class="form-control" type="text"

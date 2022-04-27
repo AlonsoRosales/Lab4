@@ -81,6 +81,8 @@ public class JuegosController {
     public String guardarJuegos(@ModelAttribute("juego") @Valid Juegos juego,BindingResult bindingResult,RedirectAttributes attr,Model model ){
 
         if(bindingResult.hasErrors()){
+            System.out.println("ESTO IMPRIME:");
+            System.out.println(juego.getIdjuego());
             model.addAttribute("generos", generosRepository.findAll());
             model.addAttribute("distribuidoras", distribuidorasRepository.findAll());
             model.addAttribute("plataformas", plataformasRepository.findAll());
