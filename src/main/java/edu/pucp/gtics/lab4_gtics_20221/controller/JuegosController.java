@@ -16,6 +16,7 @@ import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/juegos")
 public class JuegosController {
 
     @Autowired
@@ -41,19 +42,24 @@ public class JuegosController {
     }
 
     public String vistaJuegos ( ){
-
+        return "";
     }
 
-    public String nuevoJuegos( ){
-
+    @GetMapping("/nuevo")
+    public String nuevoJuegos(@ModelAttribute("juego") Juegos juego,Model model ){
+        model.addAttribute("listaPlataformas",plataformasRepository.findAll());
+        model.addAttribute("listaGeneros",generosRepository.findAll());
+        model.addAttribute("listaDistribuidoras",distribuidorasRepository.findAll());
+       return "juegos/editarFrm";
     }
 
     public String editarJuegos( ){
-
+        return "";
     }
 
+    @GetMapping("/save")
     public String guardarJuegos( ){
-
+        return  "";
     }
 
     @GetMapping("/juegos/borrar")

@@ -18,7 +18,7 @@ public class DistribuidorasController {
     @Autowired
     PaisesRepository paisesRepository;
 
-    @GetMapping(value = {"/lista"})
+    /*@GetMapping(value = {"/lista"})
     public String listaDistribuidoras ( ){
 
     }
@@ -34,7 +34,7 @@ public class DistribuidorasController {
 
     public String guardarDistribuidora( ){
 
-    }
+    }*/
 
     @GetMapping("/borrar")
     public String borrarDistribuidora(@RequestParam("id") int id){
