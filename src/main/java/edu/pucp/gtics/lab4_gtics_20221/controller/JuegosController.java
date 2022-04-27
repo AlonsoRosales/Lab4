@@ -35,23 +35,23 @@ public class JuegosController {
 
     @GetMapping(value = {"", "/","/juegos/lista"})
     public String listaJuegos (){
-
+        return "juegos/lista";
     }
 
     public String vistaJuegos ( ){
-
+        return "juegos/comprado";
     }
 
     public String nuevoJuegos( ){
-
+        return "/juegos/editarFrm";
     }
 
     public String editarJuegos( ){
-
+        return "/juegos/editarFrm";
     }
 
     public String guardarJuegos( ){
-
+        return "redirect:/juegos/lista";
     }
 
     @GetMapping("/juegos/borrar")

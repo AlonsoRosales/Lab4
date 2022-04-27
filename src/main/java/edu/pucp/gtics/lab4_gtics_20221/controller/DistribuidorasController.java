@@ -4,12 +4,15 @@ import edu.pucp.gtics.lab4_gtics_20221.entity.Distribuidoras;
 import edu.pucp.gtics.lab4_gtics_20221.repository.DistribuidorasRepository;
 import edu.pucp.gtics.lab4_gtics_20221.repository.PaisesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
+@Controller
 @RequestMapping("/distribuidoras")
-
 public class DistribuidorasController {
 
     @Autowired
@@ -19,21 +22,23 @@ public class DistribuidorasController {
     PaisesRepository paisesRepository;
 
     @GetMapping(value = {"/lista"})
-    public String listaDistribuidoras ( ){
-
+    public String listaDistribuidoras (Model model){
+        List<Distribuidoras> list = distribuidorasRepository.findAll();
+        model.addAttribute("lista",list);
+        return "distribuidoras/lista";
     }
 
 
     public String editarDistribuidoras(){
-
+        return "distribuidoras/editar";
     }
 
     public String nuevaDistribuidora( ){
-
+        return "distribuidoras/editar";
     }
 
     public String guardarDistribuidora( ){
-
+        return "redirect:/distribuidoras/lista";
     }
 
     @GetMapping("/borrar")
