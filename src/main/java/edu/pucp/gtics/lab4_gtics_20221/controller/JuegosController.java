@@ -42,7 +42,7 @@ public class JuegosController {
     }
 
     public String vistaJuegos ( ){
-
+        return "juegos/comprado";
     }
     @GetMapping("/juegos/nuevo")
     public String nuevoJuegos(@ModelAttribute("juego") Juegos juegos, Model model){
@@ -56,11 +56,11 @@ public class JuegosController {
     }
 
     public String editarJuegos( ){
-
+        return "juegos/editarFrm";
     }
 
     public String guardarJuegos( ){
-
+        return "redirect:/juegos/lista";
     }
 
     @GetMapping("/juegos/borrar")

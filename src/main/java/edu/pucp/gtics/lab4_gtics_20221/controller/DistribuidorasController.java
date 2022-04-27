@@ -30,11 +30,12 @@ public class DistribuidorasController {
 
 
     public String editarDistribuidoras(){
-        return "distribuidoras/editar";
+        return "distribuidoras/editarFrm";
     }
-
-    public String nuevaDistribuidora( ){
-        return "distribuidoras/editar";
+    @GetMapping(value = "/nueva")
+    public String nuevaDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidoras,Model model){
+        model.addAttribute("listaPaises",paisesRepository.findAll());
+        return "distribuidoras/editarFrm";
     }
 
     public String guardarDistribuidora( ){
