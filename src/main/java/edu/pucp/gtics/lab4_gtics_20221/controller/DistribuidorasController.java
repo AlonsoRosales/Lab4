@@ -6,8 +6,11 @@ import edu.pucp.gtics.lab4_gtics_20221.repository.PaisesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,15 +45,38 @@ public class DistribuidorasController {
             return "redirect:/distribuidoras";
         }
     }
+
+    public String guardarDistribuidora(@ModelAttribute("distribuidora") @Valid Distribuidoras distribuidora, BindingResult bindingResult,
+                                       RedirectAttributes attr,
+                                       Model model ){
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("listaPaises", paisesRepository.findAll());
+            return "distribuidoras/editarFrm";
+        } else {
+
+            if (distribuidora.getId() == null) {
+                attr.addFlashAttribute("msg", "Distribuidora creada exitosamente");
+                distribuidorasRepository.save(distribuidora);
+                return "redirect:/distribuidoras";
+            } else {
+                distribuidorasRepository.save(distribuidora);
+                attr.addFlashAttribute("msg", "Distribuidora actualizada exitosamente");
+                return "redirect:/distribuidoras";
+            }
+        }
+
+
+    }
+
+
     @GetMapping(value = "/nuevo")
     public String nuevaDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidoras,Model model){
         model.addAttribute("listaPaises",paisesRepository.findAll());
         return "distribuidoras/editarFrm";
     }
 
-    public String guardarDistribuidora( ){
-        return "redirect:/distribuidoras/lista";
-    }
+
 
     @GetMapping("/borrar")
     public String borrarDistribuidora(@RequestParam("id") int id){
