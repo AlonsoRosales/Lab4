@@ -32,7 +32,7 @@ public class DistribuidorasController {
     public String editarDistribuidoras(){
         return "distribuidoras/editarFrm";
     }
-    @GetMapping(value = "/nueva")
+    @GetMapping(value = "/nuevo")
     public String nuevaDistribuidora(@ModelAttribute("distribuidora") Distribuidoras distribuidoras,Model model){
         model.addAttribute("listaPaises",paisesRepository.findAll());
         return "distribuidoras/editarFrm";
