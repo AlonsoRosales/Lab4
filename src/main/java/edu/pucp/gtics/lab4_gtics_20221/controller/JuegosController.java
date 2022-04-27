@@ -58,7 +58,27 @@ public class JuegosController {
     }
 
     @GetMapping("/editar")
-    public String editarJuegos(@ModelAttribute("juego") Juegos juego,BindingResult bindingResult,RedirectAttributes attr, @RequestParam("id") int id, Model model){
+    public String editarJuegos(@ModelAttribute("juego") Juegos juego, @RequestParam("id") int id, Model model){
+
+        Optional<Juegos> optionalJuegos = juegosRepository.findById(id);
+        if (optionalJuegos.isPresent()) {
+            Juegos juegos = optionalJuegos.get();
+           model.addAttribute("juego",juegos);
+            List<Generos> generosList = generosRepository.findAll();
+            List<Plataformas> plataformasList = plataformasRepository.findAll();
+            List<Distribuidoras> distribuidorasList = distribuidorasRepository.findAll();
+            model.addAttribute("generos",generosList);
+            model.addAttribute("plataformas",plataformasList);
+            model.addAttribute("distribuidoras",distribuidorasList);
+            return "juegos/editarFrm";
+        } else {
+            return "redirect:/juegos/lista";
+        }
+
+    }
+
+    @PostMapping("/guardar")
+    public String guardarJuegos(@ModelAttribute("juego") @Valid Juegos juego,BindingResult bindingResult,RedirectAttributes attr,Model model ){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("generos", generosRepository.findAll());
@@ -77,19 +97,14 @@ public class JuegosController {
                 return "redirect:/juegos/lista";
             }
         }
-
     }
 
-    @GetMapping("/save")
-    public String guardarJuegos( ){
-        return "redirect:/juegos/lista";
-    }
-
-    @GetMapping("/juegos/borrar")
-    public String borrarDistribuidora(@RequestParam("id") int id){
+    @GetMapping("/borrar")
+    public String borrarDistribuidora(@RequestParam("id") int id,RedirectAttributes attr){
         Optional<Juegos> opt = juegosRepository.findById(id);
         if (opt.isPresent()) {
             juegosRepository.deleteById(id);
+            attr.addFlashAttribute("msg3", "Juego borrado exitosamente");
         }
         return "redirect:/juegos/lista";
     }
