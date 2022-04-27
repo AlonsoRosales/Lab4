@@ -10,7 +10,7 @@ public class Juegos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idjuego;
+    private Integer idjuego;
     @NotBlank
     @Size(max = 45,min = 3)
     private String nombre;
