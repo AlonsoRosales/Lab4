@@ -1,44 +1,67 @@
 package edu.pucp.gtics.lab4_gtics_20221.entity;
 
+import edu.pucp.gtics.lab4_gtics_20221.entity.Paises;
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "distribuidoras")
 public class Distribuidoras {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "iddistribuidora", nullable = false)
+    private Integer id;
 
-    private int iddistribuidora;
-
+    @Size(min = 3, max = 50, message = "El nombre debe contener entre 3 y 50 caracteres")
+    @Column(name = "nombre")
     private String nombre;
 
+    @Size(min = 3, max = 198, message = "La descripción dee contener entre 3 y 198 caracteres")
+    @Column(name = "descripcion")
     private String descripcion;
 
+    @Min(value = 1800,message = "El año no puede ser menor a 1800")
+    @Max(value = 2100,message = "El año no puede ser mayor a 2100")
+    @Column(name = "fundacion", nullable = false)
+    private Integer fundacion;
+
+    @Size(min=3,max=192,message = "La url debe estar comprendida entre 3 y 198 caracteres")
+    @URL(protocol = "https")
+    @Column(name = "web")
     private String web;
 
-    private int fundacion = 1870;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idsede")
+    @NotNull(message = "Debe seleccionar un país")
+    private Paises idsede;
 
-    private Paises pais;
-
-    public int getIddistribuidora() {
-        return iddistribuidora;
+    public Paises getIdsede() {
+        return idsede;
     }
 
-    public void setIddistribuidora(int iddistribuidora) {
-        this.iddistribuidora = iddistribuidora;
+    public void setIdsede(Paises idsede) {
+        this.idsede = idsede;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getWeb() {
+        return web;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public Integer getFundacion() {
+        return fundacion;
+    }
+
+    public void setFundacion(Integer fundacion) {
+        this.fundacion = fundacion;
     }
 
     public String getDescripcion() {
@@ -49,26 +72,19 @@ public class Distribuidoras {
         this.descripcion = descripcion;
     }
 
-    public String getWeb() {
-        return web;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setWeb(String web) {
-        this.web = web;
-    }
-    public int getFundacion() {
-        return fundacion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setFundacion(int fundacion) {
-        this.fundacion = fundacion;
+    public Integer getId() {
+        return id;
     }
 
-    public Paises getPais() {
-        return pais;
-    }
-
-    public void setPais(Paises pais) {
-        this.pais = pais;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
