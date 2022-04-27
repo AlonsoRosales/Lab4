@@ -9,29 +9,34 @@ import javax.validation.constraints.*;
 public class Juegos {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idjuego;
-
+    @NotBlank
+    @Size(max = 45,min = 3)
     private String nombre;
-
+    @NotBlank
+    @Size
     private String descripcion;
-
+    @Digits(integer = 10,fraction = 4)
+    @Max(value = 500)
+    @Min(value = 10)
     private double precio;
 
     private String image;
 
     @ManyToOne
     @JoinColumn(name = "idplataforma")
-
+    @NotNull
     private Plataformas plataforma;
 
     @ManyToOne
     @JoinColumn(name = "iddistribuidora")
-
+    @NotNull
     private Distribuidoras distribuidora;
 
     @ManyToOne
     @JoinColumn(name = "idgenero")
-
+    @NotNull
     private Generos genero;
 
     public int getIdjuego() {
