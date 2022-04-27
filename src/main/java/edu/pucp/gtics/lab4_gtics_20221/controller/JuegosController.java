@@ -3,6 +3,7 @@ package edu.pucp.gtics.lab4_gtics_20221.controller;
 import edu.pucp.gtics.lab4_gtics_20221.entity.*;
 import edu.pucp.gtics.lab4_gtics_20221.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,6 @@ public class JuegosController {
         model.addAttribute("lista",juegosList);
         return "juegos/lista";
     }
-
 
     public String vistaJuegos ( ){
         return "redirect:/juegos/lista";
