@@ -1,13 +1,15 @@
 package edu.pucp.gtics.lab4_gtics_20221.entity;
 
 import edu.pucp.gtics.lab4_gtics_20221.entity.Paises;
+import net.bytebuddy.implementation.bind.annotation.BindingPriority;
+import org.aspectj.bridge.IMessage;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "distribuidoras")
@@ -21,7 +23,7 @@ public class Distribuidoras {
     @Column(name = "nombre")
     private String nombre;
 
-    @Size(min = 3, max = 198, message = "La descripción dee contener entre 3 y 198 caracteres")
+    @Size(min = 3, max = 198, message = "La descripción debe contener entre 3 y 198 caracteres")
     @Column(name = "descripcion")
     private String descripcion;
 
@@ -37,7 +39,7 @@ public class Distribuidoras {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idsede")
-    @NotNull(message = "Debe seleccionar un país")
+    @NotNull(message = "Sede no puede estar vacío")
     private Paises idsede;
 
     public Paises getIdsede() {

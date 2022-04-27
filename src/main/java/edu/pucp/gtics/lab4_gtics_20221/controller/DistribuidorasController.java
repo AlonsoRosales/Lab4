@@ -49,7 +49,6 @@ public class DistribuidorasController {
     public String guardarDistribuidora(@ModelAttribute("distribuidora") @Valid Distribuidoras distribuidora, BindingResult bindingResult,
                                        RedirectAttributes attr,
                                        Model model ){
-
         if (bindingResult.hasErrors()) {
             model.addAttribute("listaPaises", paisesRepository.findAll());
             return "distribuidoras/editarFrm";
